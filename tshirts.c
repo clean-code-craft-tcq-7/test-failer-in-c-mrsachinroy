@@ -21,14 +21,14 @@ int main() {
     assert(size(40) == 'M');
     assert(size(43) == 'L');
 
-    for (size_t i = MIN_SIZE; i < MAX_SIZE; i++)
+    for (int i = MIN_SIZE; i < MAX_SIZE; i++)
     {
-        if(size(i) == '\0')
+        if((size(i) != 'S') || (size(i) != 'M') || (size(i) != 'L'))
         {
             assert(0);
         }
     }
     
-    printf("All is well (maybe!)\n");
+    // printf("All is well (maybe!)\n");
     return 0;
 }
