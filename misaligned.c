@@ -14,8 +14,20 @@ int printColorMap() {
 }
 
 int main() {
+    
+    printf("All is well (maybe!!!!!!!!!!======!!!!!!)\n");
+    FILE *ClrMapOut = freopen("output.txt", "w", stdout);
     int result = printColorMap();
-    assert(result == 25);
-    printf("All is well (maybe!)\n");
+    fclose(ClrMapOut);
+    // fflush( stdout );
+    
+    printf("All is well =============================================(maybe!)\n");
+    fclose(stdout);
+    
+    printf("All is well =============================================(maybe!)\n");
+    setvbuf (stdout, NULL, _IONBF, 0);
+    assert(result == 5);
+    printf("All is well =============================================(maybe!)\n");
+
     return 0;
 }
