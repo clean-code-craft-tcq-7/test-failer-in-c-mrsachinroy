@@ -1,8 +1,6 @@
-#include <stdio.h>
-#include <assert.h>
+#include "stdio.h"
+#include "assert.h"
 
-#define MAX_SIZE    50
-#define MIN_SIZE    25
 
 char size(int cms) {
     char sizeName = '\0';
@@ -21,16 +19,10 @@ int main() {
     assert(size(40) == 'M');
     assert(size(43) == 'L');
 
-    for (int i = MIN_SIZE; i < MAX_SIZE; i++)
-    {
-        if((size(i) != 'S') || (size(i) != 'M') || (size(i) != 'L'))
-        {
-            assert(0);
-        }
-    }
-    
-    // printf("All is well (maybe!)\n");
+    assert((size(38) == 'S') || (size(38) == 'M')); // adding test case for size 38
+    assert((size(42) == 'M') || (size(42) == 'L')); // adding test case for size 42
 
-    //testing for commit
+    printf("All is well (maybe!)\n");
+
     return 0;
 }
