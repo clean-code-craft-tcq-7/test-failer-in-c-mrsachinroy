@@ -10,7 +10,7 @@ char retString[20] = {};
 void TestAlignment(const char* TstString, char Seprator)
 {
     static int SepPos, i;
-    char * ptr = NULL;
+    const char * ptr = NULL;
     ptr = strchr( TstString, Seprator );
 
     if (i < 1)
@@ -42,7 +42,6 @@ int printColorMap() {
     const char* majorColor[] = {"White", "Red", "Black", "Yellow", "Violet"};
     const char* minorColor[] = {"Blue", "Orange", "Green", "Brown", "Slate"};
     const char *ptrPrintString = NULL;
-    int indx = 0;
     char TstString[7] = {};
     int i = 0, j = 0;
     for(i = 0; i < 5; i++) {
@@ -70,5 +69,7 @@ int main() {
     
     int result = printColorMap();
 
+    assert(result == 25 );
+    
     return 0;
 }
