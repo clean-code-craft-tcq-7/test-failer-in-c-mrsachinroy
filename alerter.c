@@ -2,11 +2,6 @@
 #include <assert.h>
 
 
-#define TEST_ENV    (1)
-#define PROD_ENV    (2)
-
-#define ENV     TEST_ENV
-
 int alertFailureCount = 0;
 
 //for testing purpose
@@ -27,13 +22,19 @@ int networkAlert(float celcius) {
     return 200;
 }
 
-void alertInCelcius(float farenheit) {
+//Test for return code and counter
+void TestRetCode(int Code, int FailCount)
+{
+    assert((Code != 200) && (FailCount <1));
+    assert((Code != 200) || (Code != 500));
+}
+
+
+void alertInCelcius(float farenheit, int (*netAlert)(float)) {
     float celcius = (farenheit - 32) * 5 / 9;
-#if ENV == TEST_ENV
-    int returnCode = networkAlertStub(celcius);
-#elif ENV == PROD_ENV
-    int returnCode = networkAlert(celcius);
-#endif
+
+    int returnCode = (*netAlert)(celcius);
+
     if (returnCode != 200) {
         // non-ok response is not an error! Issues happen in life!
         // let us keep a count of failures to report
@@ -41,14 +42,12 @@ void alertInCelcius(float farenheit) {
         // Add a test below to catch this bug. Alter the stub above, if needed.
         alertFailureCount += 0;
     }
-#if ENV == TEST_ENV
-    assert((returnCode != 200) && (alertFailureCount <1));
-#endif
+    TestRetCode(returnCode,alertFailureCount);
 }
 
 int main() {
-    alertInCelcius(400.5);
-    alertInCelcius(303.6);
+    alertInCelcius(400.5, &networkAlertStub);
+    alertInCelcius(303.6, &networkAlertStub);
     printf("%d alerts failed.\n", alertFailureCount);
     printf("All is well (maybe!)\n");
     return 0;
